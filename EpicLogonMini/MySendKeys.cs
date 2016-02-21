@@ -83,14 +83,29 @@ namespace EpicLogonMini
 
             }
         }
+        public void PressKeyArrayPassword(Keys[] keys)//first letter is caps
+        {
+            int count = 1;
+            foreach (Keys key in keys)
+            {
+
+                if (count == 1)//default password first key is caps
+                {
+                    down(Keys.ShiftKey);
+                    PressKey(key);
+                    up(Keys.ShiftKey);
+                    Thread.Sleep(10);
+                }
+                else { PressKey(key); }
+                count++;
+            }
+        }
         public void AltL()
         {
 
         }
         public void TypeString(string text)
         {
-            bool caps = false;
-            bool Letter = false;
             bool first = false;
             string textUPPER = text.ToUpper();
             for (int i = 0; i < text.Length; i++)

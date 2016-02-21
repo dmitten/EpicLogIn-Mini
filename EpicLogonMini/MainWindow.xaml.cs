@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -27,17 +26,59 @@ namespace EpicLogonMini
         public MainWindow()
         {
             InitializeComponent();
+            watch();
         }
 
         private void PassportSignInButton_Click(object sender, RoutedEventArgs e)
         {
+            logonfromfilewatcher();
+        }
+      
+        [STAThread]
+        private void logonfromfilewatcher()
+        {
             IntPtr hand = MakeeRecordActive();
             ScreenCapture sc = new ScreenCapture();
-            Image img= sc.CaptureScreen();
+            Image img = sc.CaptureScreen();
             System.Windows.Forms.Clipboard.SetImage(img); Find f = new Find();
             f.FindBmp(img);
+            MySendKeys m = new MySendKeys();
+            m.PressKeyArray(Ident);
+            Thread.Sleep(10);
+            m.PressKey(Keys.Tab);
+            Thread.Sleep(100);
+            m.PressKeyArrayPassword(Pass);
+            Thread.Sleep(10);
+            //m.AltO();
+            //Thread.Sleep(200);
+            //m.AltO();
 
+            System.Windows.Forms.Application.Exit();
+        }
+        private void watch()
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = "C:\\Users\\djmit_000\\AppData\\Local\\Packages\\2ac7d836-d159-47dc-90c5-0f42f5eb793a_4j5t8z38t883m\\LocalState";
 
+            //watcher.Path = "C:\\Users\\dmitten\\AppData\\Local\\Packages\\48304DaveMitten.MittenLog_prf20yrc9cbyp\\LocalState";
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Filter = "*.*";
+            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.EnableRaisingEvents = true;// kill on event
+        }
+        [STAThread]
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            // need to get back yo ui thread
+            Dispatcher.BeginInvoke(new MethodInvoker(delegate
+            {
+                logonfromfilewatcher();
+            }));
+            var watcher = sender as FileSystemWatcher;
+            if (watcher != null)
+            {
+                watcher.EnableRaisingEvents = false;
+            }  
         }
         private IntPtr MakeeRecordActive()
         {
@@ -56,5 +97,7 @@ namespace EpicLogonMini
             Thread.Sleep(250);
             return hand;
         }
+
+
     }
 }

@@ -52,7 +52,7 @@ namespace EpicLogonMini
                             Cursor.Position = new Point(X +20, Y-5);
                             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, new IntPtr());
                             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, new IntPtr());
-                            Thread.Sleep(500);
+                            //Thread.Sleep(500);
                             X = 5000; Y = 5000; // stop
                         }
                      }
