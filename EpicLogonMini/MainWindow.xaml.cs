@@ -68,9 +68,9 @@ namespace EpicLogonMini
         private void watch()
         {
             FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = "C:\\Users\\djmit_000\\AppData\\Local\\Packages\\2ac7d836-d159-47dc-90c5-0f42f5eb793a_4j5t8z38t883m\\LocalState";
+            //watcher.Path = "C:\\Users\\djmit_000\\AppData\\Local\\Packages\\2ac7d836-d159-47dc-90c5-0f42f5eb793a_4j5t8z38t883m\\LocalState";
 
-            //watcher.Path = "C:\\Users\\dmitten\\AppData\\Local\\Packages\\48304DaveMitten.MittenLog_prf20yrc9cbyp\\LocalState";
+            watcher.Path = "C:\\Users\\dmitten\\AppData\\Local\\Packages\\48304DaveMitten.MittenLog_prf20yrc9cbyp\\LocalState";
             watcher.NotifyFilter = NotifyFilters.LastWrite;
             watcher.Filter = "*.*";
             watcher.Changed += new FileSystemEventHandler(OnChanged);
