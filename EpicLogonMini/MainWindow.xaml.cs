@@ -54,7 +54,16 @@ namespace EpicLogonMini
             //Thread.Sleep(200);
             //m.AltO();
 
-            
+            if (System.Windows.Forms.Application.MessageLoop)//http://stackoverflow.com/questions/554408/why-would-application-exit-fail-to-work
+            {
+                // Use this since we are a WinForms app
+                System.Windows.Forms.Application.Exit();
+            }
+            else
+            {
+                // Use this since we are a console app
+                System.Environment.Exit(1);
+            }
         }
         private void watch()
         {
@@ -81,16 +90,7 @@ namespace EpicLogonMini
             {
                 watcher.EnableRaisingEvents = false;
             }
-            if (System.Windows.Forms.Application.MessageLoop)//http://stackoverflow.com/questions/554408/why-would-application-exit-fail-to-work
-            {
-                // Use this since we are a WinForms app
-                System.Windows.Forms.Application.Exit();
-            }
-            else
-            {
-                // Use this since we are a console app
-                System.Environment.Exit(1);
-            }
+          
         }
         private IntPtr MakeeRecordActive()
         {
