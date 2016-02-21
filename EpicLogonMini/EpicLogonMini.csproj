@@ -99,11 +99,18 @@
     </ApplicationDefinition>
     <Compile Include="ActiveWindow.cs" />
     <Compile Include="Find.cs" />
+    <Compile Include="MainWindow - Copy.xaml.cs">
+      <DependentUpon>MainWindow - Copy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MySendKeys.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="NativeWin32.cs" />
     <Compile Include="ScreenCapture.cs" />
     <Compile Include="WindowProcesses.cs" />
+    <Page Include="MainWindow - Copy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
