@@ -42,6 +42,7 @@ namespace EpicLogonMini
             Image img = sc.CaptureScreen();
             System.Windows.Forms.Clipboard.SetImage(img); Find f = new Find();
             f.FindBmp(img);
+            Thread.Sleep(20);
             MySendKeys m = new MySendKeys();
             m.PressKeyArray(Ident);
             Thread.Sleep(10);
@@ -53,7 +54,7 @@ namespace EpicLogonMini
             //Thread.Sleep(200);
             //m.AltO();
 
-            System.Windows.Forms.Application.Exit();
+            
         }
         private void watch()
         {
@@ -73,12 +74,23 @@ namespace EpicLogonMini
             Dispatcher.BeginInvoke(new MethodInvoker(delegate
             {
                 logonfromfilewatcher();
+               
             }));
             var watcher = sender as FileSystemWatcher;
             if (watcher != null)
             {
                 watcher.EnableRaisingEvents = false;
-            }  
+            }
+            if (System.Windows.Forms.Application.MessageLoop)//http://stackoverflow.com/questions/554408/why-would-application-exit-fail-to-work
+            {
+                // Use this since we are a WinForms app
+                System.Windows.Forms.Application.Exit();
+            }
+            else
+            {
+                // Use this since we are a console app
+                System.Environment.Exit(1);
+            }
         }
         private IntPtr MakeeRecordActive()
         {
